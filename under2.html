@@ -1,0 +1,246 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <style>
+      .aframebox {
+          height: 60%;
+          width: 60%;
+        }
+    </style>
+  </head>
+  <body>
+    <a-scene class="aframebox_" embedded loading-screen="dotsColor: red; backgroundColor: black" shadow="type: pcfsoft">
+        
+      <a-entity camera position="0 1.2 2.5"  rotation="0 0 0" look-controls="" wasd-controls=""></a-entity>
+      <!--a-camera position="0 3 7.5" rotation="30 60"></a-camera-->
+      <!--a-camera position="0 1.82128 4.34485" rotation="-25.210142985756224 106.22637521725464 0" camera="" look-controls="" wasd-controls="" data-aframe-inspector-original-camera=""></a-camera-->
+        <a-assets>
+            <img id="sky" src="sky_.jpg">
+          </a-assets>
+      <a-box
+      position="0 1.5 0"
+      width="3" height="0.3" depth="0.15"
+      rotation="0 0 0"
+      color="#FFFFFF"
+      material="src: warning.jpg"
+      shadow="cast: true">
+    </a-box>
+    <a-box
+      position="0 1.65 0"
+      width="3" height="0.01" depth="0.15"
+      rotation="0 0 0"
+      color="#FFFFFF"
+      material="src: warning_inv.jpg"
+      shadow="cast: true">
+    </a-box>
+
+    <!--a-sphere
+      position="0 0.932 -2"
+      radius="1.25"
+      color="#EF2D5E"
+      shadow="cast: true">
+    </a-sphere-->
+    <!--Pernas da esquerda-->
+    <a-cylinder
+      position="0.8 0.662 0.31"
+      rotation="-25 0 0"
+      radius="0.05"
+      height="1.6"
+      color="#FFC65D"
+      shadow="cast: true">
+    </a-cylinder>
+
+    <a-cylinder
+      position="0.8 0.662 -0.31"
+      rotation="25 0 0"
+      radius="0.05"
+      height="1.6"
+      color="#FFC65D"
+      shadow="cast: true">
+    </a-cylinder>
+    <!--Pernas da direita-->
+    <a-cylinder
+      position="-0.8 0.662 0.31"
+      rotation="-25 0 0"
+      radius="0.05"
+      height="1.6"
+      color="#FFC65D"
+      shadow="cast: true">
+    </a-cylinder>
+
+    <a-cylinder
+      position="-0.8 0.662 -0.31"
+      rotation="25 0 0"
+      radius="0.05"
+      height="1.6"
+      color="#FFC65D"
+      shadow="cast: true">
+    </a-cylinder>
+    <!----------------------Luz de Sinalização----------------------->
+    <!--------------Base da Lâmpada--------------->
+    <a-box
+      position="0 1.66 0"
+      width="0.25" height="0.15" depth="0.1"
+      rotation="0 0 0"
+      color="rgb(255,222,23)"
+      shadow="cast: true">
+    </a-box>
+    <!-----------------Lâmpada-------------------->
+    <a-cylinder
+      position="0 1.911 0"
+      rotation="90 0 0"
+      radius="0.17"
+      height="0.04"
+      color="#FFC65D"
+      shadow="cast: true"
+      material="color: #f8fd1c; emissive: #fde224; emissiveIntensity: 1"
+      animation__color="property: material.emissive; from: #FFC65D; to: #551100; dur: 500; dir: alternate; loop: true; type: color">
+    </a-cylinder>
+    <!--a-light type="point" color="#FFC65D" position="0 1.911 0" intensity="0.3" distance="3"
+      animation="property: light.intensity; from: 0.3; to: 0; dur: 500; dir: alternate; loop: true">
+    </a-light-->
+    <a-light type="point" color="#FFC65D" position="0 1.911 0.12"  distance="" animation="property: light.intensity; from: 0.5; to: 0; dur: 500; dir: alternate; loop: true" light="intensity: 0.5; distance: 3; penumbra: 0.3; castShadow: true" intensity="1" shadow=""><!--shadow="type: pcfsoft"-->
+    </a-light>
+
+    <a-light type="point" color="#FFC65D" position="0 1.911 0" intensity="" distance="" animation="property: light.intensity; from: 0.1; to: 0; dur: 500; dir: alternate; loop: true" light="intensity: 0.1; distance: 9; penumbra: 0.3; castShadow: false" intensity="1" shadow="">
+    </a-light>
+
+    <!--a-cylinder position="0 1.94 0" rotation="90 0 0" radius="0.21" height="0.1" color="#FFC65D" shadow="" material="color: #f8fd1c; emissive: #fde224" geometry=""-->
+    
+    <!---------------------------------------------------------------------------------->
+
+    <a-plane
+      position="0 0 -4"
+      rotation="-90 0 0"
+      width="1000"
+      height="1000"
+      color="#BBB"
+      shadow="receive: true; type: pcfsoft">
+    </a-plane>
+      <a-sky src="#sky"></a-sky>
+      
+      <!--color="#7BC8A4"-->
+      <!--a-entity light="color: #333; type: ambient"></a-entity-->
+      
+      <a-entity light="color: #333; castShadow: true; type: spot; angle: 30; intensity: 0.5; penumbra: 0.5" position="0 5 0" rotation="-90 0 0"></a-entity>
+      <!--a-entity light="color: #333; castShadow: true; type: spot; angle: 30; intensity: 0.5" intensity="5" position="0 9 0" rotation="-75 0 0"></a-entity-->
+      <a-entity light="color: #333; castShadow: true; type: point; angle: 30; intensity: 0.5" position="0 2.5456 1.94927" rotation="-75 0 0"></a-entity>
+      <!-- a-entity light="intensity: 0.2; castShadow: true; type:point" position="-1.5 1 -1"></a-entity -->
+
+
+       <!-----------------------Painel UNDER CONSTRUCTION ---------------------------->
+       <a-box
+      position="-2.5 1 0"
+      width="1.5" height="0.6" depth="0.05"
+      rotation="0 20 0"
+      color="#FFFFFF"
+      material="src: under.jpg"
+      shadow="cast: true">
+        <a-cylinder
+        position="0.7 -0.5 0"
+        rotation="0 0 0"
+        radius="0.025"
+        height="1"
+        color="#FFC65D"
+        shadow="cast: true">
+        </a-cylinder>
+        <a-cylinder
+        position="-0.7 -0.5 0"
+        rotation="0 0 0"
+        radius="0.025"
+        height="1"
+        color="#FFC65D"
+        shadow="cast: true">
+        </a-cylinder>
+        <a-box
+        position="-0.7 -1 0"
+        width="0.1" height="0.1" depth="0.1"
+        rotation="0 0 0"
+        color="rgb(255,222,23)"
+        shadow="cast: true">
+        </a-box>
+        <a-box
+        position="0.7 -1 0"
+        width="0.1" height="0.1" depth="0.1"
+        rotation="0 0 0"
+        color="rgb(255,222,23)"
+        shadow="cast: true">
+        </a-box>
+    </a-box>
+
+     <!-----------------------Painel COMING SOON ---------------------------->
+     <a-box
+     position="2.5 1 0"
+     width="1" height="0.7" depth="0.05"
+     rotation="0 -20 0"
+     color="#FFFFFF"
+     material="src: soon.jpg"
+     shadow="cast: true">
+       <a-cylinder
+       position="0.5 -0.3 0"
+       rotation="0 0 0"
+       radius="0.025"
+       height="1.5"
+       color="#FFC65D"
+       shadow="cast: true">
+       </a-cylinder>
+       <a-cylinder
+       position="-0.5 -0.3 0"
+       rotation="0 0 0"
+       radius="0.025"
+       height="1.5"
+       color="#FFC65D"
+       shadow="cast: true">
+       </a-cylinder>
+       <a-box
+       position="-0.5 -1 0"
+       width="0.1" height="0.1" depth="0.1"
+       rotation="0 0 0"
+       color="rgb(255,222,23)"
+       shadow="cast: true">
+       </a-box>
+       <a-box
+       position="0.5 -1 0"
+       width="0.1" height="0.1" depth="0.1"
+       rotation="0 0 0"
+       color="rgb(255,222,23)"
+       shadow="cast: true">
+       </a-box>
+   </a-box>
+
+    <!-----------------------------CONES----------------------------------------->
+
+       <a-cone color="#FFFFFF" radius-bottom="0.14" radius-top="0.02" height="0.45" position="-1.5 0.33 0" material="src: cone.jpg" scale="1.2 1.2 1.2">
+        <a-box
+        position="0 -0.25 0"
+        width="0.4" height="0.01" depth="0.4"
+        rotation="0 0 0"
+        color="rgb(255,54,0)"
+        shadow="cast: true">
+        </a-box>
+       </a-cone>
+       <a-cone color="#FFFFFF" radius-bottom="0.14" radius-top="0.02" height="0.45" position="1.5 0.33 0" material="src: cone.jpg" scale="1.2 1.2 1.2">
+        <a-box
+        position="0 -0.25 0"
+        width="0.4" height="0.01" depth="0.4"
+        rotation="0 0 0"
+        color="rgb(255,54,0)"
+        shadow="cast: true">
+        </a-box>
+       </a-cone>
+      </a-cone>
+      <a-cone color="#FFFFFF" radius-bottom="0.14" radius-top="0.02" height="0.45" position="2 0.33 0.35" rotation="0 45 0" material="src: cone.jpg" scale="1.2 1.2 1.2">
+       <a-box
+       position="0 -0.25 0"
+       width="0.35" height="0.01" depth="0.35"
+       rotation="0 0 0"
+       color="rgb(255,54,0)"
+       shadow="cast: true">
+       </a-box>
+      </a-cone>
+
+      
+      
+    </a-scene>
+  </body>
+</html>
