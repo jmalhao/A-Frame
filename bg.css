@@ -6,7 +6,7 @@ Posted by blurfus, modified by community. See post 'Timeline' for change history
 Retrieved 2025-11-29, License - CC BY-SA 4.0
 */
 
-@media (max-width: 300px) {
+@media (max-width: 450px) {
   * {
     margin: 0;
     padding: 0;
@@ -145,7 +145,7 @@ button:hover {
     text-decoration: underline;
 }
   }
-  @media (min-width: 301px) and (max-width: 600px) {
+  @media (min-width: 451px) and (max-width: 600px) {
     * {
       margin: 0;
       padding: 0;
