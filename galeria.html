@@ -1,0 +1,637 @@
+<html>
+  <head>
+    <script src="https://aframe.io/releases/1.5.0/aframe.min.js"></script>
+    <script src="aframe-area-light-component.min.js"></script> <!--AREA LIGHT-->
+    <!--script scr="https://cdn.jsdelivr.net/gh/diarmidmackenzie/aframe-multi-camera@latest/src/mirror.min.js"></script-->
+    <!--script src="https://unpkg.com/aframe-mirror-component/dist/aframe-mirror-component.min.js"></script--><!--https://github.com/alfa256/aframe-mirror-component-->
+    <script src="https://cdn.jsdelivr.net/npm/aframe-mirror@latest/index.js"></script>
+    <!--script src="dynamic-reflection.js"></script-->
+
+    <!--não sei de quem é-->
+    <!--https://cdn.jsdelivr.net/npm/@belivvr/aframe-react-mirror@0.1.1/dist/@belivvr/-->
+
+    <style>
+      p{
+        color: aliceblue;
+        text-align: center;
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 15px;
+      }
+      h1{
+        color: rgb(190, 191, 192);
+        text-align: center;
+        font-family: "Lucida Console", "Courier New", monospace;
+        font-size: 23px;
+      }
+      body{
+        background: #000000;
+        background-image: url(bg.jpg);
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: cover;
+      }
+      .aframebox {
+          border: 2px solid rgb(75 70 74);
+          
+          
+          
+          margin: 0 auto;
+          height: 70%;
+          width: 70%;
+        }
+    </style>
+  </head>
+  <body>
+    <h1>Miguel's Gallery</h1>
+    <a-scene class="aframebox" embedded loading-screen="dotsColor: red; backgroundColor: black">
+    <!--a-scene renderer="colorManagement:true; toneMapping: reinhard;"-->
+
+        <!-- a-assets>
+            <img id="texture" src="1.jpg"/>
+          </a-assets>
+      <a-plane position="0 0 -4" rotation="-90 0 0" width="1" height="1" src="#texture"></a-plane -->
+
+        <!------------ 3 Cameras --------------->
+      <a-entity camera look-controls wasd-controls="acceleration: 5" position="0 1.6 4.5"></a-entity>
+      <!--a-entity camera look-controls wasd-controls="acceleration: 50" position="0 1.6 3"></a-entity-->
+      <!--a-entity camera look-controls wasd-controls="acceleration: 50" position="0 1.6 4"--></a-entity>
+
+      <a-entity light="type: ambient; color: #555"></a-entity>
+      <a-entity light="type: directional; color: #AAAAAA; intensity: 0.5; castShadow: true" position="0 -1 0 "></a-entity>
+      <!-- Luz -->
+      <!-- a-entity light="type: point; intensity: 0.75; distance: 50; decay: 2" position="0 10 10"></a-entity -->
+      <!-- Chão -->
+      <!--a-entity geometry="primitive: plane; width: 10; height: 10" material="src: 2.jpg; repeat:10 10" position="0 0 0" rotation="-90 0 0"></a-entity--><!--Chão para trabalhar em casa-->
+      
+      <a-entity
+            geometry="primitive: plane; width: 10; height: 10"
+            material="color:#FFFFFF; repeat:10 10"
+            position="0 0 0"
+            rotation="-90 0 0"
+            normal-map="metal_map.png"
+            normal-texture-repeat="5 5"
+            normal-scale="5 -5"
+            metalness="0.1"
+            roughness="0.1" mirror="color:#FFFFFF;intensity:1;textureWidth:2048;textureHeight:2048">
+      </a-entity>
+      
+      <!--a-plane position="0 1.5 -3.9" width="10" height="10" color="#777777" opacity="0.5"></a-plane--> <!--parede vertical transparente-->
+
+      <!--Chão que tem opacity de 0.85 e dá o brilho-->
+      <a-plane position="0 0.01 0" rotation="-90 0 0" width="10" height="10" color="#FFFFFF" material="src: img/2.jpg" repeat="10 10" opacity="0.85"></a-plane><!--opacity="0.85"-->
+
+      <!--a-plane position="-1 0.5 -3" scale="10 10 10" mirror></a-plane-->
+      <!-- Tecto -->
+      <a-entity geometry="primitive: box; width: 10; height: 0.1; depth: 10" material="color:#FFFFFF; wireframe: false" position="0 2.5 0"></a-entity>
+      <!-- Tecto2 -->
+      <!--a-entity geometry="primitive: box; width: 9.7; height: 0.1; depth: 9.7" material="color:#FFFFFF; repeat:5 5; wireframe: false" position="0 2.3 0"></a-entity--><!--Tecto2 original-->
+      <a-entity geometry="height: 0.1; depth: 9.7; width: 2.5" material="color: #FFFFFF" position="-3.6 2.3 0"></a-entity>
+      <a-entity geometry="height: 0.1; depth: 9.7; width: 2.3" material="color: #FFFFFF" position="0 2.3 0"></a-entity>
+      <a-entity geometry="height: 0.1; depth: 9.7; width: 2.5" material="color: #FFFFFF" position="3.6 2.3 0"></a-entity>
+      <a-entity geometry="height: 0.1; depth: 2.3; width: 9.7" material="color: #FFFFFF" position="0 2.3 -3.7"></a-entity>
+      <a-entity geometry="height: 0.1; depth: 2.3; width: 9.7" material="color: #FFFFFF" position="0 2.3 3.7"></a-entity>
+     
+       <!-- Parede Direita -->
+       <a-entity geometry="primitive: box; width: 0.1; height: 2.5; depth: 10" material="src: color:#FFAA00; wireframe: false" position="5 1.25 0"></a-entity>
+            <!--Rodapé-->
+            <a-entity geometry="primitive: box; width: 0.15; height: 0.2; depth: 10" material="color:#FFFFFF; wireframe: false" position="5 0.1 0"></a-entity>
+       <!--------Parede Esquerda --------->
+       <a-entity geometry="primitive: box; width: 0.1; height: 2.5; depth: 10" material="src: color:#FFAA00; wireframe: false" position="-5 1.25 0"></a-entity>
+            <!--Rodapé-->
+            <a-entity geometry="primitive: box; width: 0.15; height: 0.2; depth: 10" material="color:#FFFFFF; wireframe: false" position="-5 0.1 0"></a-entity>
+       <!-- Parede Atrás da Camera -->
+       <a-entity geometry="primitive: box; width: 10; height: 2.5; depth: 0.1" material="src: color:#FFAA00; wireframe: false" position="0 1.25 5"></a-entity>
+            <!--Rodapé-->
+            <a-entity geometry="primitive: box; width: 10; height: 0.2; depth: 0.15" material="color:#FFFFFF; wireframe: false" position="0 0.1 5"></a-entity>
+       <!-- Parede do Fundo -- A cor antida da parede era:#AAAAAA--->
+       <a-entity geometry="primitive: box; width: 10; height: 2.5; depth: 0.1" material="src: color:#FFAA00; wireframe: false" position="0 1.25 -5"></a-entity>
+            <!--Rodapé-->
+            <a-entity geometry="primitive: box; width: 10; height: 0.2; depth: 0.15" material="color:#FFFFFF; wireframe: false" position="0 0.1 -5"></a-entity>
+       <!-- Parede do Meio (Direita) -->
+       <a-entity geometry="primitive: box; width: 1; height: 2.5; depth: 5" material="src: color:#FFAA00; repeat:5 1; wireframe: false" position="1.75 1.25 0"></a-entity>
+            <!--Rodapé-->
+            <a-entity geometry="primitive: box; width: 1.05; height: 0.2; depth: 5.05" material="src: color:#FFFFFF; repeat:5 1; wireframe: false" position="1.75 0.1 0"></a-entity>
+       <!-- Parede do Meio (Esquerda) -->
+       <a-entity geometry="primitive: box; width: 1; height: 2.5; depth: 5" material="src: color:#FFAA00; repeat:5 1; wireframe: false" position="-1.75 1.25 0"></a-entity>
+            <!--Rodapé-->
+            <a-entity geometry="primitive: box; width: 1.05; height: 0.2; depth: 5.05" material="src: color:#FFFFFF; repeat:5 1; wireframe: false" position="-1.75 0.1 0"></a-entity>
+ 
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!--------------------------------------------------- Luzes do Tecto Xenom ---------------------------------------------------------------------------->
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!--a-torus color="#43A367" position="0 1 0" arc="360" radius="0.1" radius-tubular="0.01"></a-torus-->
+      <a-torus color="#000000" position="-1.75 2.252 2.65" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+
+      <a-torus color="#000000" position="1.75 2.252 2.65" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <!------------------------- Corredor do meio -------------------------->
+      <a-torus color="#000000" position="0 2.252 -3.5" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <a-torus color="#000000" position="0 2.252 0" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <a-torus color="#000000" position="0 2.252 3.5" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <!------------------------- Corredor da esquerda -------------------------->
+      <a-torus color="#000000" position="3.5 2.252 -3.5" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <a-torus color="#000000" position="3.5 2.252 0" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <a-torus color="#000000" position="3.5 2.252 3.5" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <!------------------------- Corredor da direita -------------------------->
+      <a-torus color="#000000" position="-3.5 2.252 -3.5" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <a-torus color="#000000" position="-3.5 2.252 0" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <a-torus color="#000000" position="-3.5 2.252 3.5" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1">
+        <a-cylinder color="#FFFFFF" position="0 0 0" rotation="-90 0 0" height="0.3" radius="0.3" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <!-------------------------Luzes Xenon da Parede e do Chão (São as luzes a apontar para cima e para baixo)-------------------------->
+      <a-cylinder color="#FFFFFF" position="-1.75 1.23 2.574" rotation="0 0 0" height="0.25" radius="0.07" material="color: #000000" scale="0.4 0.4 0.4">
+        <a-cylinder color="#FFFFFF" position="0 0.15 0" rotation="0 0 0" height="0.025" radius="0.07" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-cylinder color="#FFFFFF" position="0 -0.15 0" rotation="0 0 0" height="0.025" radius="0.07" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-box color="#000000" position="0 0 -0.1" width="0.1" height="0.1" depth="0.1" scale="1 1 1"></a-box>
+      </a-cylinder>
+
+      <a-cylinder color="#FFFFFF" position="1.75 1.23 2.574" rotation="0 0 0" height="0.25" radius="0.07" material="color: #000000" scale="0.4 0.4 0.4">
+        <a-cylinder color="#FFFFFF" position="0 0.15 0" rotation="0 0 0" height="0.025" radius="0.07" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-cylinder color="#FFFFFF" position="0 -0.15 0" rotation="0 0 0" height="0.025" radius="0.07" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat"></a-cylinder>
+        <a-box color="#000000" position="0 0 -0.1" width="0.1" height="0.1" depth="0.1" scale="1 1 1"></a-box>
+      </a-cylinder>
+
+      <!----------------------------------------------------------------- Luzes do Tecto Xenom, Novas,em alternativa aos SpotLights ----------------------------------------------------------------------------------->
+                                      <!-- Estão ao fundo no corredor do meio-->
+      <a-torus color="#000000" position="-1.08198 2.252 -1.38696" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1" material="" geometry="" visible="">
+        <a-cylinder color="#FFFFFF" position="" rotation="-90 0 0" height="0.3" radius="0.3" material="shader: flat" geometry=""></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <a-torus color="#000000" position="1.08198 2.252 -1.38696" rotation="90 0 0" radius="0.3" radius-tubular="0.075" scale="0.1 0.1 0.1" material="" geometry="" visible="">
+        <a-cylinder color="#FFFFFF" position="" rotation="-90 0 0" height="0.3" radius="0.3" material="shader: flat" geometry=""></a-cylinder>
+        <a-entity light="type: point; intensity: 0.3; distance: 1; decay: 3" position="0 -0.3 0.881"></a-entity>
+      </a-torus>
+      <!--a-entity geometry="primitive: cylinder; radius: 0.5; height: 10" rotation="90 0 0" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="-4.9 2.3 0"></a-entity-->
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!-------------------------------------------------------------- Sky --------------------------------------------------------------------------------->
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+       <a-sky color="#000000"></a-sky>
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!--------------------------------------------------- ( 4 Quadros ) Parede do Fundo ------------------------------------------------------------------>
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-3.5 1.5 -4.9" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo1.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-3.5 2.25 -4.7" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-1.25 1.5 -4.9" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo2.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-1.25 2.25 -4.7" rotation="-90 0 0"></a-entity>
+
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="1.25 1.5 -4.9" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo3.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="1.25 2.25 -4.7" rotation="-90 0 0"></a-entity>
+      
+        <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="3.5 1.5 -4.9" material="color:#000000">
+          <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" material="src: photos/photo4.jpg; repeat:1 1; wireframe: false">
+          </a-entity>
+        </a-entity>
+
+        <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="3.5 2.25 -4.7" rotation="-90 0 0"></a-entity>
+    
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!--------------------------------------------------- ( 4 Quadros ) Parede atrás da Camera ------------------------------------------------------------------------------------------>
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-3.5 1.5 4.9" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo5.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-3.5 2.25 4.7" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-1.25 1.5 4.9" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo6.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-1.25 2.25 4.7" rotation="-90 0 0"></a-entity>
+
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="1.25 1.5 4.9" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo7.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="1.25 2.25 4.7" rotation="-90 0 0"></a-entity>
+      
+        <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="3.5 1.5 4.9" material="color:#000000">
+          <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" material="src: photos/photo8.jpg; repeat:1 1; wireframe: false">
+          </a-entity>
+        </a-entity>
+        <!--Luz-->
+        <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="3.5 2.25 4.7" rotation="-90 0 0"></a-entity>
+        <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+        <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!--------------------------------------------------- ( 4 Quadros ) Parede Esquerda ------------------------------------------------------------------------------------------>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-4.9 1.5 -3.5" rotation="0 90 0" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo9.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-4.7 2.25 -3.5" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-4.9 1.5 -1.25" rotation="0 90 0" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo10.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-4.7 2.25 -1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-4.9 1.5 1.25" rotation="0 90 0" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo11.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-4.7 2.25 1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-4.9 1.5 3.5" rotation="0 90 0" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo12.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="-4.7 2.25 3.5" rotation="-90 0 0"></a-entity>
+
+        <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!--------------------------------------------------- ( 4 Quadros ) Parede Direita ------------------------------------------------------------------------------------------>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="4.9 1.5 -3.5" rotation="0 90 0" material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo13.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="4.7 2.25 -3.5" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="4.9 1.5 -1.25" rotation="0 90 0"material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo14.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="4.7 2.25 -1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="4.9 1.5 1.25" rotation="0 90 0"material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo15.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="4.7 2.25 1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="4.9 1.5 3.5" rotation="0 90 0"material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo16.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="4.7 2.25 3.5" rotation="-90 0 0"></a-entity>
+      <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+      <!--------------------------------------------------- ( 2 Quadros ) Parede do Meio (Direita) ------------------------------------------------------------------------------------------>
+
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="2.25 1.5 -1.25" rotation="0 90 0" material="color: #000000">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/photo17.jpg">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="2.5 2.25 -1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="2.25 1.5 1.25" rotation="0 90 0" material="color: #000000">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/photo18.jpg">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="2.5 2.25 1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="1.25 1.5 -1.25" rotation="0 90 0"material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo19.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="1 2.25 -1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="1.25 1.5 1.25" rotation="0 90 0"material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo20.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra:0.1" position="1 2.25 1.25" rotation="-90 0 0"></a-entity>
+      <!--Quadros Pequenos-->
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="1.75 1.75 2.51998" material="color: #000000" scale="0.5 0.5 0.5">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/sky.jpg"></a-entity>
+        <!--a-entity geometry="depth: 0.03" position="" rotation="" material="color:#FFFFFF" mirror="color:#FFFFFF;intensity:1;textureWidth:2048;textureHeight:2048"></a-entity--><!--Espelho-->
+        </a-entity>
+
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="1.75 0.75 2.51998" material="color: #000000" scale="0.5 0.5 0.5">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/sky.jpg"></a-entity>
+        <!--a-entity geometry="depth: 0.03" position="" rotation="" material="color:#FFFFFF" mirror="color:#FFFFFF;intensity:1;textureWidth:2048;textureHeight:2048"></a-entity--><!--Espelho-->
+        </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.5" position="1.75 2.35 2.7" rotation="-90 0 0"></a-entity>
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.5" position="1.75 1.3 2.7" rotation="-90 0 0"></a-entity>
+
+     
+
+       <!---------------------------------------------------------------------------------------------------------------------------------------------------->
+       
+      <!--------------------------------------------------- ( 2 Quadros ) Parede do Meio (Esquerda) ------------------------------------------------------------------------------------------>
+
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="-2.25 1.5 -1.25" rotation="0 90 0" material="color: #000000">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/photo21.jpg">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.1" position="-2.5 2.25 -1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="-2.25 1.5 1.25" rotation="0 90 0" material="color: #000000">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/photo22.jpg">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.1" position="-2.5 2.25 1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-1.25 1.5 -1.25" rotation="0 90 0"material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo23.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.1" position="-1 2.25 -1.25" rotation="-90 0 0"></a-entity>
+
+      <a-entity geometry="primitive: box; width: 1.1; height: 1.1; depth: 0.025" position="-1.25 1.5 1.25" rotation="0 90 0"material="color:#000000">
+        <a-entity geometry="primitive: box; width: 1.0; height: 1.0; depth: 0.03" position="0 0 0" rotation="0 0 0" material="src: photos/photo24.jpg; repeat:1 1; wireframe: false">
+        </a-entity>
+      </a-entity>
+      <!--Luz-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.1" position="-1 2.25 1.25" rotation="-90 0 0"></a-entity>
+
+      <!--Quadros Pequenos-->
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="-1.75 1.75 2.51998" material="color: #000000" scale="0.5 0.5 0.5">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/sky.jpg"></a-entity>
+        <!--a-entity geometry="depth: 0.03" position="" rotation="" material="color:#FFFFFF" mirror="color:#FFFFFF;intensity:1;textureWidth:2048;textureHeight:2048"></a-entity--><!--Espelho-->
+        </a-entity>
+
+      <a-entity geometry="width: 1.1; height: 1.1; depth: 0.025" position="-1.75 0.75 2.51998" material="color: #000000" scale="0.5 0.5 0.5">
+        <a-entity geometry="depth: 0.03" position="" rotation="" material="src: photos/sky.jpg"></a-entity>
+        <!--a-entity geometry="depth: 0.03" position="" rotation="" material="color:#FFFFFF" mirror="color:#FFFFFF;intensity:1;textureWidth:2048;textureHeight:2048"></a-entity--><!--Espelho-->
+        </a-entity>
+      <!--Luz-->
+      <!--a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.5" position="-1.75 2.35 2.7" rotation="-90 0 0"></a-entity-->
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.5" position="-1.75 1.3 2.7" rotation="-90 0 0"></a-entity>
+      <a-entity light="type: spot; intensity: 7; distance: 2; decay: 3; penumbra: 0.5" position="-1.75 1.17 2.7" rotation="90 0 0"></a-entity>
+      <!---------------------------------------------------------------- Luz de Área entre o Tecto e as Paredes ------------------------------------------------------------------------------------>
+      <!--Parede do Fundo-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5;" position="-5 2.45 -4.5" rotation="0 0 0"></a-entity>
+      <!--Parede atrás da Camera-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5;" position="-5 2.45 4.5" rotation="0 180 180"></a-entity>
+      <!--Parede Esquerda-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5;" position="-4.75 2.45 4.5" rotation="0 90 0"></a-entity>
+      <!--Parede Direita-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5;" position="4.75 2.45 -4.5" rotation="0 -90 0"></a-entity>
+      <!--Parede do Meio Esquerda (Luz do lado Direito)-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5" position="-1.09251 2.45 4.5" rotation="0 90 0"></a-entity>
+      <!--Parede do Meio Esquerda (Luz do lado Esquerdo)-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5" position="-2.45289 2.45 -4.5" rotation="0 -90 0"></a-entity>
+      <!--Parede do Meio Esquerda (Luz do Fundo)-->
+      <!--Parede do Meio Esquerda (Luz Atrás da Camera)-->
+      <!--Parede do Meio Direito (Luz do lado Direito)-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5" position="2.31364 2.45 4.5" rotation="0 90 0"></a-entity>
+      <!--Parede do Meio Direito (Luz do lado Esquerdo)-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5" position="1.05746 2.45 -4.5" rotation="0 -90 0"></a-entity>
+      <!--Paredes do Meio Direito (Luz do Fundo - Uma Lampada para as duas Paredes )-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5;" position="-5 2.45 -2.75" rotation="0 180 180"></a-entity>
+      <!-------------a-entity area-light="width: 10; height: 0.1; intensity: 1; color: #FFFFC5" position="-5 2.2 -2.55" rotation="0 0 0"></a-entity---------------->
+      
+      <!--Parede do Meio Direito (Luz Atrás da Camera)-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 5; color: #FFFFC5" position="-5 2.45 2.68244" rotation=""></a-entity>
+      <!-------------------------------------------------------------------->
+      
+      <!-----------------------------Luz de Área nos Tectos--------------------->
+      <!------ Parede Esquerda e Tecto-------->
+      <a-entity area-light="width: 10; height: 0.05; intensity: 2.5; color: #FFFFC5" position="-4.9 2.05 4.5" rotation="0 -90 -180" visible=""></a-entity>
+      <!------ Parede do Meio Esquerda e Tecto (Lado Esquerdo)-------->
+      <a-entity area-light="width: 5; height: 0.05; intensity: 2.5; color: #FFFFC5" position="-2.33418 2.05 2.5" rotation="0 90 0" visible=""></a-entity>
+      <!------ Parede do Meio Esquerda e Tecto (Lado Direito)-------->
+      <a-entity area-light="width: 5; height: 0.05; intensity: 2.5; color: #FFFFC5" position="-1.17 2.05 2.5" rotation="0 -90 -180" visible=""></a-entity>
+      <!--LUZ PARA EXPERIMENTAR NA BIBLIOTECA-->
+      <!------ Parede Direita e Tecto-------->
+      <a-entity area-light="width: 10; height: 0.05; intensity: 2.5; color: #FFFFC5" position="4.9 2.05 4.5" rotation="0 90 0" visible=""></a-entity>
+      <!------ Parede do Meio Direita e Tecto (Lado Direito)-------->
+      <a-entity area-light="width: 5; height: 0.05; intensity: 2.5; color: #FFFFC5" position="2.33418 2.05 2.5" rotation="0 -90 -180" visible=""></a-entity>
+      <!------ Parede do Meio Direita e Tecto (Lado Esquerdo)-------->
+      <a-entity area-light="width: 5; height: 0.05; intensity: 2.5; color: #FFFFC5" position="1.17 2.05 2.5" rotation="0 90 0" visible=""></a-entity>
+
+      <!--LUZ PARA EXPERIMENTAR NO TECTO-->
+      <!--Parede do Fundo-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 1; color: #FFFFC5" position="-5 2.15915 -4.77" rotation="90 0 0"></a-entity>
+      <!--Parede Atrás da Camera-->
+      <a-entity area-light="width: 10; height: 0.1; intensity: 1; color: #FFFFC5" position="-5 2.15915 4.77" rotation="90 0 0"></a-entity>
+      <!--Paredes do Meio Fundo-->
+      <a-entity area-light="width: 1; height: 0.1; intensity: 1; color: #FFFFC5" position="-2.25 2.2 -2.55" rotation="0 0 0"></a-entity>
+      <a-entity area-light="width: 1; height: 0.1; intensity: 1; color: #FFFFC5" position="1.25 2.2 -2.55" rotation="0 0 0"></a-entity>
+      <!--Paredes do Meio Frente (Atrás da Camera)-->
+      <a-entity area-light="width: 1; height: 0.1; intensity: 0.5; color: #FFFFC5" position="-2.25 2.2 2.6" rotation="90 0 0"></a-entity>
+      <a-entity area-light="width: 1; height: 0.1; intensity: 0.5; color: #FFFFC5" position="1.25 2.2 2.6" rotation="90 0 0"></a-entity>
+      
+
+
+      <!--a-entity area-light="width: 10; height: 10; intensity: 2; color: #FF9900;" position="0.6 1.11 -1"></a-entity>
+      <a-entity area-light="width: 1; height: 2; intensity: 8; color: #0094ff;" position="-1.8 1.11 -0.66" rotation="0 53.342 0"></a-entity>
+      <a-entity area-light="width: 3; height: 2; intensity: 3; color: #ff0000;" position="-1.8 1.11 -2.66" rotation="0 53.342 0"></a-entity-->
+
+       <!--a-entity light="type: point; intensity: 10.75; distance: 1; decay:3" position="-4.5 0.1 0"></a-entity-->
+       <!---------------------------------------------------------------- Lampadas Florecentes ------------------------------------------------------------------------------------>
+       <!-- Paredes Esquerda, Direita, do Fundo, Atrás da Camera -->
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 9.5" rotation="90 0 0" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="-4.9 2.3 0"></a-entity>
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 9.5" rotation="90 0 0" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="4.9 2.3 0"></a-entity>
+
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 9.5" rotation="0 0 90" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="0 2.3 -4.9"></a-entity>
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 9.5" rotation="0 0 90" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="0 2.3 4.9"></a-entity>
+
+      <!-- Parede do Meio Esquerda -->
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 4.5" rotation="90 0 0" material="color: #FFFFFF; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="-2.3 2.3 0"></a-entity>
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 4.5" rotation="90 0 0" material="color: #FFFFFF; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="-1.2 2.3 0"></a-entity>
+
+      <!-- Parede do Meio Direita -->
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 4.5" rotation="90 0 0" material="color: #FFFFFF; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="2.3 2.3 0"></a-entity>
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 4.5" rotation="90 0 0" material="color: #FFFFFF; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="1.2 2.3 0"></a-entity>
+
+      <!-- Parede do Meio Esquerda e Direita (2 lampadas que fazem frente e trás das 2 paredes)-->
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 9.5" rotation="0 0 90" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="0 2.3 -2.525"></a-entity>
+      <a-entity geometry="primitive: cylinder; radius: 0.01; height: 9.5" rotation="0 0 90" material="color: #FFFFFF;  emissive: #FFFFFF; emissiveIntensity: 1.5; shader: flat" light="type: point; intensity: 0.1; distance: 1" position="0 2.3 2.525"></a-entity>
+
+<!----------------------------------- Quadro em gltf ( 2 quadros ) ----------------------------------->
+  <!-- a-asset-item 
+      id="glbtestmodel"
+      src="127-0-0-1-8000-galeria-quadro-html.glb">
+  </a-asset-item>
+  <a-entity 
+    id="glbtest"
+    gltf-model="#glbtestmodel"
+    position="0 0 0">9
+  </a-entity>
+  <a-entity 
+    id="glbtest"
+    gltf-model="#glbtestmodel"
+    position="2 0 0">
+</a-entity -->
+<!----------------------------------- Esfera de Teste de Mirror ----------------------------------->
+<!--a-sphere position="0 1 -3" color="blue" mirror></a-sphere-->
+<!----------------------------------- Suportes (barras - cilindros) iluminação do Tecto ----------------------------------->
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 10" rotation="0 0 90" material="color: #000000" position="0 2.25 -4.7"></a-entity--><!---->
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 10" rotation="0 0 90" material="color: #000000" position="0 2.25 4.7"></a-entity--><!---->
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 10" rotation="90 0 0" material="color: #000000" position="-4.7 2.25 0"></a-entity--><!---->
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 10" rotation="90 0 0" material="color: #000000" position="4.7 2.25 0"></a-entity--><!---->
+
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 5" rotation="90 0 0" material="color: #000000" position="-2.35998 2.25 0"></a-entity--><!--Parede do Meio Esquerdo (Lado Esquerdo)-->
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 5" rotation="90 0 0" material="color: #000000" position="-1.13867 2.25 0"></a-entity--><!--Parede do Meio Esquerdo (Lado Direito)-->
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 5" rotation="90 0 0" material="color: #000000" position="1.09985 2.25 0"></a-entity--><!--Parede do Meio Direita (Lado Esquerdo)-->
+<!--a-entity geometry="primitive: cylinder; radius: 0.01; height: 5" rotation="90 0 0" material="color: #000000" position="2.35754 2.25 0"></a-entity--><!--Parede do Meio Direita (Lado Direito)-->
+<!------------------------------------------------------------------------------------------->
+<a-assets>
+  <a-asset-item id="tree-obj" src="Spot light CAPRI.obj"></a-asset-item>
+  <a-asset-item id="tree-mtl" src="Spot light CAPRI.mtl"></a-asset-item>
+</a-assets>
+<!----------------------------------- Projectores spotLights parede Esquerda ----------------------------------->
+
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-4.7 2.15 -3.5" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-4.7 2.15 3.5" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-4.7 2.15 -1.25" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-4.7 2.15 1.25" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<!----------------------------------- Projectores spotLights parede Direita ----------------------------------->
+
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="4.7 2.15 -3.5" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="4.7 2.15 3.5" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="4.7 2.15 -1.25" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="4.7 2.15 1.25" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<!----------------------------------- Projectores spotLights parede do Meio Esquerda (Lado Esquerdo)----------------------------------->
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-2.5 2.15 -1.25" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-2.5 2.15 1.25" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<!----------------------------------- Projectores spotLights parede do Meio Esquerda (Lado Direito)----------------------------------->
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-1 2.15 -1.25" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-1 2.15 1.25" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<!----------------------------------- Projectores spotLights parede do Meio Direita (Lado Esquerdo)----------------------------------->
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="1 2.15 -1.25" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="1 2.15 1.25" rotation="0 90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<!----------------------------------- Projectores spotLights parede do Meio Direita (Lado Direito)----------------------------------->
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="2.5 2.15 -1.25" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="2.5 2.15 1.25" rotation="0 -90 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<!----------------------------------- Projectores spotLights parede Fundo ----------------------------------->
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-3.5 2.15 -4.7" rotation="0 180 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="3.5 2.15 -4.7" rotation="0 180 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-1.25 2.15 -4.7" rotation="0 180 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="1.25 2.15 -4.7" rotation="0 180 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<!----------------------------------- Projectores spotLights parede Atrás da Camera ----------------------------------->
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-3.5 2.15 4.7" rotation="0 0 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="3.5 2.15 4.7" rotation="0 0 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="-1.25 2.15 4.7" rotation="0 0 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<a-entity obj-model="obj: #tree-obj; mtl: #tree-mtl" scale="0.001 0.001 0.001" position="1.25 2.15 4.7" rotation="0 0 0">
+  <a-cylinder color="#FFFFFF" position="0 -45.62505 88.16418" rotation="57.765604905089596 179.9998479605043 179.9998479605043" height="0.1" radius="0.5" scale="100 100 100" material="shader: flat" geometry="radius: 0.34"></a-cylinder>
+</a-entity>
+<!----------------------------------- Suportes (barras - rectangulos) iluminação do Tecto ----------------------------------->
+<a-entity geometry="primitive: box; width: 0.05; height: 0.031; depth: 7.1" material="color:#000000; wireframe: false" position="-4.7 2.265 0"></a-entity>
+<a-entity geometry="primitive: box; width: 0.05; height: 0.031; depth: 7.1" material="color:#000000; wireframe: false" position="4.7 2.265 0"></a-entity>
+<a-entity geometry="primitive: box; width: 0.05; height: 0.031; depth: 2.6" material="color:#000000; wireframe: false" position="-2.5 2.25 0"></a-entity>
+<a-entity geometry="primitive: box; width: 0.05; height: 0.031; depth: 2.6" material="color:#000000; wireframe: false" position="-1 2.25 0"></a-entity>
+<a-entity geometry="primitive: box; width: 0.05; height: 0.031; depth: 2.6" material="color:#000000; wireframe: false" position="2.5 2.25 0"></a-entity>
+<a-entity geometry="primitive: box; width: 0.05; height: 0.031; depth: 2.6" material="color:#000000; wireframe: false" position="1 2.25 0"></a-entity>
+<!--Paredes do Fundo e Atrás da Camera-->
+<a-entity geometry="primitive: box; width: 7.1; height: 0.031; depth: 0.05" material="color:#000000; wireframe: false" position="0 2.265 -4.7"></a-entity>
+<a-entity geometry="primitive: box; width: 7.1; height: 0.031; depth: 0.05" material="color:#000000; wireframe: false" position="0 2.265 4.7"></a-entity>
+
+    </a-scene>
+    <p>Use the arrow keys and the mouse to navigate the gallery</p>
+  </body>
+</html>
